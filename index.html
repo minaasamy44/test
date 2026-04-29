@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Happy Birthday Jessie 💜</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,6 +24,7 @@
     background: #0d0014;
     color: white;
     font-family: 'Tajawal', sans-serif;
+    scroll-behavior: smooth;
   }
 
   /* ── شاشة البداية ── */
@@ -35,7 +36,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 28px;
     z-index: 100;
     transition: opacity 0.8s ease, visibility 0.8s;
   }
@@ -43,30 +44,28 @@
 
   .start-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 8vw, 52px);
+    font-size: clamp(30px, 9vw, 56px);
     letter-spacing: 2px;
     background: linear-gradient(135deg, #e9d5ff, #f9a8d4, #c4b5fd);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-    padding: 0 20px;
+    padding: 0 24px;
     animation: shimmer 3s ease-in-out infinite alternate;
   }
   @keyframes shimmer {
     from { filter: brightness(1); }
-    to   { filter: brightness(1.3); }
+    to   { filter: brightness(1.35); }
   }
-
   .start-subtitle {
     font-size: clamp(14px, 4vw, 18px);
     color: var(--lavender);
     opacity: 0.7;
     letter-spacing: 1px;
   }
-
   .start-btn {
-    margin-top: 10px;
-    padding: 18px 44px;
+    margin-top: 8px;
+    padding: 18px 48px;
     font-size: clamp(16px, 4.5vw, 20px);
     font-family: 'Tajawal', sans-serif;
     font-weight: 700;
@@ -75,7 +74,7 @@
     border-radius: 50px;
     color: white;
     cursor: pointer;
-    box-shadow: 0 0 30px rgba(124, 58, 237, 0.6), 0 0 60px rgba(124, 58, 237, 0.2);
+    box-shadow: 0 0 30px rgba(124,58,237,0.6), 0 0 60px rgba(124,58,237,0.2);
     position: relative;
     overflow: hidden;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -85,19 +84,13 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
     border-radius: inherit;
   }
-  .start-btn:active { transform: scale(0.96); box-shadow: 0 0 15px rgba(124,58,237,0.5); }
+  .start-btn:active { transform: scale(0.96); }
 
-  /* نجوم متلألئة في الخلفية */
-  .stars {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
+  /* ── نجوم ── */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   .star {
     position: absolute;
     border-radius: 50%;
@@ -110,18 +103,11 @@
     100% { opacity: var(--max-op); transform: scale(1); }
   }
 
-  /* ── خلفية الصور المتبادلة ── */
-  .bg-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
+  /* ── خلفية صور ── */
+  .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .bg-layer img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
     filter: blur(18px) saturate(1.4);
     opacity: 0;
@@ -129,28 +115,23 @@
     transform: scale(1.08);
   }
   .bg-layer img.active { opacity: 0.25; }
-
-  /* طبقة لون فوق الصور */
   .bg-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background: radial-gradient(ellipse at 30% 40%, rgba(59,7,100,0.7) 0%, rgba(0,0,0,0.85) 100%);
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 30% 40%, rgba(59,7,100,0.72) 0%, rgba(0,0,0,0.86) 100%);
     pointer-events: none;
   }
 
-  /* ── المحتوى الرئيسي ── */
+  /* ── محتوى ── */
   .content {
-    position: relative;
-    z-index: 1;
-    padding: 0 0 80px;
+    position: relative; z-index: 1;
+    padding-bottom: 0;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 1.2s ease, transform 1.2s ease;
   }
   .content.show { opacity: 1; transform: translateY(0); }
 
-  /* هيدر */
+  /* ── Hero ── */
   .hero {
     min-height: 100svh;
     display: flex;
@@ -161,152 +142,315 @@
     text-align: center;
     gap: 20px;
   }
-
   .hero-emoji {
-    font-size: clamp(40px, 12vw, 72px);
+    font-size: clamp(44px, 13vw, 78px);
     animation: float 3s ease-in-out infinite;
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-12px); }
+    50%       { transform: translateY(-14px); }
   }
-
   .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 10vw, 72px);
+    font-size: clamp(34px, 11vw, 76px);
     line-height: 1.1;
     background: linear-gradient(135deg, #e9d5ff 0%, #f9a8d4 50%, #c4b5fd 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: none;
   }
-
   .hero-date {
     font-size: clamp(12px, 3.5vw, 16px);
     color: var(--lavender);
     letter-spacing: 3px;
-    text-transform: uppercase;
     opacity: 0.6;
   }
 
-  /* بطاقة الرسالة */
+  /* ── بطاقة رسالة ── */
   .card {
-    margin: 0 20px 48px;
-    background: rgba(80, 0, 120, 0.35);
-    border: 1px solid rgba(196, 181, 253, 0.2);
+    background: rgba(80,0,120,0.35);
+    border: 1px solid rgba(196,181,253,0.2);
     border-radius: 24px;
-    padding: clamp(24px, 6vw, 44px);
+    padding: clamp(24px, 6vw, 48px);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 8px 40px rgba(124,58,237,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
-    max-width: 540px;
-    margin-inline: auto;
-    margin-inline: 20px;
+    max-width: 580px;
+    margin: 0 20px 60px;
   }
-  @media (min-width: 580px) { .card { margin: 0 auto 48px; } }
+  @media (min-width: 620px) { .card { margin: 0 auto 60px; } }
 
   .card-label {
     font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--rose);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     opacity: 0.8;
   }
-
   .typed-text {
     font-size: clamp(15px, 4.2vw, 19px);
-    line-height: 1.9;
+    line-height: 1.95;
     color: #f3e8ff;
     font-weight: 300;
     min-height: 80px;
   }
-
   .cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1.1em;
-    background: var(--rose);
-    margin-right: 2px;
+    display: inline-block; width: 2px; height: 1.1em;
+    background: var(--rose); margin-right: 2px;
     vertical-align: text-bottom;
     animation: blink 0.8s step-end infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* قسم الفيديوهات */
-  .section {
-    padding: 0 20px;
-    max-width: 600px;
-    margin: 0 auto;
+  /* ── divider ── */
+  .divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lavender), transparent);
+    margin: 0 auto 64px;
   }
 
+  /* section wrapper */
+  .section-wrap {
+    max-width: 700px;
+    margin: 0 auto 72px;
+    padding: 0 20px;
+  }
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(20px, 6vw, 30px);
+    font-size: clamp(22px, 6.5vw, 34px);
     color: var(--lavender);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     text-align: center;
+    letter-spacing: 1px;
   }
 
-  .video-wrap {
+  /* ══════════════════
+     ── الجاليري ──
+  ══════════════════ */
+  .gallery-frame {
     position: relative;
-    margin-bottom: 24px;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(196,181,253,0.15);
+    background: rgba(40,0,70,0.5);
+    border: 1px solid rgba(196,181,253,0.18);
+    box-shadow: 0 16px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(196,181,253,0.1);
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
   }
-  .video-wrap video {
-    width: 100%;
+  .gallery-track {
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+  .gallery-slide {
+    min-width: 100%;
+    position: relative;
+    aspect-ratio: 4/3;
+  }
+  @media (max-width: 480px) { .gallery-slide { aspect-ratio: 3/4; } }
+
+  .gallery-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
     display: block;
-    border-radius: 20px;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+  .gallery-slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,0,20,0.55) 0%, transparent 45%);
+  }
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 22px 18px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .gallery-label {
+    font-size: clamp(13px,3.5vw,15px);
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+  .gallery-counter {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--lavender);
+    opacity: 0.7;
+    font-style: normal;
+    font-family: 'Tajawal', sans-serif;
   }
 
-  /* جسيمات القلوب */
-  .particles-container {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
+  /* أسهم */
+  .gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(40px,10vw,50px);
+    height: clamp(40px,10vw,50px);
+    border-radius: 50%;
+    background: rgba(60,0,100,0.6);
+    border: 1px solid rgba(196,181,253,0.25);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 3;
+    transition: background 0.2s, transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+  }
+  .gallery-btn:active { background: rgba(124,58,237,0.7); transform: translateY(-50%) scale(0.9); }
+  .gallery-btn.prev { right: 12px; }
+  .gallery-btn.next { left: 12px; }
+
+  /* نقط */
+  .gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .gallery-dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 4px;
+    background: rgba(196,181,253,0.3);
+    transition: background 0.3s, width 0.3s;
+    cursor: pointer;
+  }
+  .gallery-dot.active {
+    background: var(--lavender);
+    width: 24px;
+  }
+
+  /* ══════════════════
+     ── فيديوهات ──
+  ══════════════════ */
+  .videos-wrap { max-width: 620px; margin: 0 auto 72px; padding: 0 20px; }
+  .video-wrap {
+    margin-bottom: 28px;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 12px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(196,181,253,0.12);
+  }
+  .video-wrap video { width: 100%; display: block; }
+
+  /* ══════════════════
+     ── شكر ──
+  ══════════════════ */
+  .thanks-section {
+    position: relative;
+    padding: 88px 24px 110px;
+    text-align: center;
     overflow: hidden;
   }
-  .particle {
-    position: absolute;
-    bottom: -40px;
-    font-size: clamp(14px, 3vw, 22px);
-    animation: rise linear forwards;
-    opacity: 0.7;
+  .thanks-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.22) 0%, transparent 65%);
+    pointer-events: none;
   }
+  .thanks-section::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(196,181,253,0.4), transparent);
+  }
+  .thanks-emoji {
+    font-size: clamp(38px,11vw,64px);
+    margin-bottom: 24px;
+    display: block;
+    animation: float 4s ease-in-out infinite;
+  }
+  .thanks-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px,7.5vw,44px);
+    background: linear-gradient(135deg, #e9d5ff, #f9a8d4 60%, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 44px;
+    line-height: 1.25;
+  }
+  .thanks-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 16px;
+    max-width: 700px;
+    margin: 0 auto 52px;
+    text-align: right;
+  }
+  .thanks-card {
+    background: rgba(60,0,100,0.35);
+    border: 1px solid rgba(196,181,253,0.18);
+    border-radius: 20px;
+    padding: 24px 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .thanks-card:hover {
+    border-color: rgba(196,181,253,0.38);
+    box-shadow: 0 0 28px rgba(124,58,237,0.22);
+  }
+  .thanks-card-emoji { font-size: 28px; margin-bottom: 12px; display: block; }
+  .thanks-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px,3.5vw,17px);
+    color: var(--lavender);
+    margin-bottom: 8px;
+  }
+  .thanks-card-text {
+    font-size: clamp(13px,3.2vw,15px);
+    color: rgba(243,232,255,0.7);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .thanks-closing {
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: clamp(15px,4vw,18px);
+    line-height: 2;
+    color: rgba(243,232,255,0.85);
+    font-weight: 300;
+  }
+  .thanks-closing strong { color: var(--rose); font-weight: 700; }
+  .thanks-sig {
+    margin-top: 36px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px,4.5vw,22px);
+    color: var(--lavender);
+    opacity: 0.75;
+  }
+
+  /* ── جسيمات ── */
+  .particles-container { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  .particle { position: absolute; bottom: -40px; animation: rise linear forwards; opacity: 0.7; }
   @keyframes rise {
     0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.7; }
     100% { transform: translateY(-110vh) rotate(360deg) scale(0.4); opacity: 0; }
   }
 
-  /* قسم تغيير الصور (مؤشر دوت) */
+  /* ── مؤشر خلفية ── */
   .bg-dots {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
+    position: fixed; bottom: 18px; left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 5;
+    display: flex; gap: 8px; z-index: 5;
   }
   .bg-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(196,181,253,0.35);
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(196,181,253,0.3);
     transition: background 0.4s, transform 0.4s;
   }
   .bg-dot.on { background: var(--lavender); transform: scale(1.4); }
-
-  /* divider */
-  .divider {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--lavender), transparent);
-    margin: 0 auto 48px;
-  }
 </style>
 </head>
 <body>
@@ -326,7 +470,7 @@
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- خلفية الصور -->
+<!-- خلفية -->
 <div class="bg-layer" id="bgLayer">
   <img src="photo1.jpg" class="active" alt="">
   <img src="photo2.jpg" alt="">
@@ -338,15 +482,17 @@
 <!-- جسيمات -->
 <div class="particles-container" id="particles"></div>
 
-<!-- المحتوى -->
+<!-- ══════ المحتوى الكامل ══════ -->
 <div class="content" id="mainContent">
 
+  <!-- ① Hero -->
   <section class="hero">
     <div class="hero-emoji">🎂</div>
     <h1 class="hero-title">Happy Birthday<br>Jessie</h1>
     <p class="hero-date">✨ يوم مميز زيّكِ ✨</p>
   </section>
 
+  <!-- ② رسالة -->
   <div class="card">
     <p class="card-label">رسالتي ليكِ</p>
     <p class="typed-text" id="typedText"><span class="cursor"></span></p>
@@ -354,7 +500,70 @@
 
   <div class="divider"></div>
 
-  <section class="section">
+  <!-- ③ جاليري -->
+  <div class="section-wrap">
+    <h2 class="section-title">لحظاتنا الحلوة 📸</h2>
+
+    <div class="gallery-frame" id="galleryFrame">
+      <div class="gallery-track" id="galleryTrack">
+
+        <div class="gallery-slide">
+          <img src="photo1.jpg" alt="ذكرى 1">
+          <div class="gallery-caption">
+            <span class="gallery-label">لحظة مميزة ✨</span>
+            <span class="gallery-counter" id="gc">1 / 6</span>
+          </div>
+        </div>
+
+        <div class="gallery-slide">
+          <img src="photo2.jpg" alt="ذكرى 2">
+          <div class="gallery-caption">
+            <span class="gallery-label">وقت جميل 🌸</span>
+          </div>
+        </div>
+
+        <div class="gallery-slide">
+          <img src="photo3.jpg" alt="ذكرى 3">
+          <div class="gallery-caption">
+            <span class="gallery-label">ذكرى ما تتنسيش 💜</span>
+          </div>
+        </div>
+
+        <div class="gallery-slide">
+          <img src="photo4.jpg" alt="ذكرى 4">
+          <div class="gallery-caption">
+            <span class="gallery-label">معاكِ بيفرق 🎀</span>
+          </div>
+        </div>
+
+        <div class="gallery-slide">
+          <img src="photo5.jpg" alt="ذكرى 5">
+          <div class="gallery-caption">
+            <span class="gallery-label">أجمل الأوقات 💫</span>
+          </div>
+        </div>
+
+        <div class="gallery-slide">
+          <img src="photo6.jpg" alt="ذكرى 6">
+          <div class="gallery-caption">
+            <span class="gallery-label">هنستناها تاني 🌷</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- أسهم (RTL: زر next على اليسار، prev على اليمين) -->
+      <button class="gallery-btn prev" onclick="galleryMove(-1)" aria-label="التالي">&#8250;</button>
+      <button class="gallery-btn next" onclick="galleryMove(1)"  aria-label="السابق">&#8249;</button>
+    </div>
+
+    <div class="gallery-dots" id="galleryDots"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ④ فيديوهات -->
+  <div class="videos-wrap">
     <h2 class="section-title">ذكرياتنا 🎥</h2>
     <div class="video-wrap">
       <video controls playsinline preload="metadata">
@@ -366,98 +575,163 @@
         <source src="video2.mp4" type="video/mp4">
       </video>
     </div>
+  </div>
+
+  <!-- ⑤ رسالة الشكر -->
+  <section class="thanks-section">
+    <span class="thanks-emoji">💜</span>
+    <h2 class="thanks-heading">شكراً على كل لحظة<br>عشناها مع بعض</h2>
+
+    <div class="thanks-cards">
+      <div class="thanks-card">
+        <span class="thanks-card-emoji">🌱</span>
+        <p class="thanks-card-title">أول ما اتعرفنا</p>
+        <p class="thanks-card-text">شكراً إنك دخلتِ حياتي وفضلتِ فيها... من أول يوم كنتِ مختلفة.</p>
+      </div>
+      <div class="thanks-card">
+        <span class="thanks-card-emoji">🌻</span>
+        <p class="thanks-card-title">الأيام الصعبة</p>
+        <p class="thanks-card-text">كنتِ دايمًا موجودة لما محتاجك... ده مش حاجة بتتنسى.</p>
+      </div>
+      <div class="thanks-card">
+        <span class="thanks-card-emoji">✨</span>
+        <p class="thanks-card-title">اللحظات الحلوة</p>
+        <p class="thanks-card-text">كل ضحكة وكل موقف قضيناه مع بعض... خزنته جوايا كويس.</p>
+      </div>
+      <div class="thanks-card">
+        <span class="thanks-card-emoji">🌙</span>
+        <p class="thanks-card-title">اللي جاي</p>
+        <p class="thanks-card-text">مش قلقان على المستقبل طول ما انتِ فيه معايا بنفس الطريقة دي.</p>
+      </div>
+    </div>
+
+    <p class="thanks-closing">
+      كل دي فترات وكل دي ذكريات... وأنا <strong>ممتنن</strong> عليها كلها.<br>
+      سنة جديدة وانتِ أجمل وأسعد، وربنا يديكِ كل اللي بتتمنيه 💜
+    </p>
+    <p class="thanks-sig">— دايمًا معاكِ 🌸</p>
   </section>
 
-</div>
+</div><!-- end content -->
 
-<!-- مؤشر الصور -->
+<!-- مؤشر خلفية -->
 <div class="bg-dots" id="bgDots"></div>
 
 <script>
-  // ── نجوم ──
-  (function() {
-    const c = document.getElementById('stars');
-    for (let i = 0; i < 90; i++) {
-      const s = document.createElement('div');
-      s.className = 'star';
-      const size = Math.random() * 2.5 + 0.5;
-      s.style.cssText = `
-        width:${size}px; height:${size}px;
-        top:${Math.random()*100}%;
-        left:${Math.random()*100}%;
-        --dur:${2 + Math.random()*4}s;
-        --max-op:${0.3 + Math.random()*0.7};
-        animation-delay:${Math.random()*5}s;
-      `;
-      c.appendChild(s);
-    }
-  })();
-
-  // ── خلفية صور ──
-  const bgImgs = document.querySelectorAll('.bg-layer img');
-  const dotsWrap = document.getElementById('bgDots');
-  let bgIdx = 0;
-
-  bgImgs.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'bg-dot' + (i === 0 ? ' on' : '');
-    dotsWrap.appendChild(d);
-  });
-  const dots = dotsWrap.querySelectorAll('.bg-dot');
-
-  function nextBg() {
-    bgImgs[bgIdx].classList.remove('active');
-    dots[bgIdx].classList.remove('on');
-    bgIdx = (bgIdx + 1) % bgImgs.length;
-    bgImgs[bgIdx].classList.add('active');
-    dots[bgIdx].classList.add('on');
+/* ── نجوم ── */
+(function(){
+  const c = document.getElementById('stars');
+  for(let i=0;i<100;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random()*2.5+0.5;
+    s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--max-op:${0.3+Math.random()*0.7};animation-delay:${Math.random()*5}s;`;
+    c.appendChild(s);
   }
-  setInterval(nextBg, 5000);
+})();
 
-  // ── كتابة تدريجية ──
-  const msg = "كل سنة وانتِ أجمل حاجة في حياتي 💜 وجودك فرّق معايا في كل حاجة... وأنا محظوظ إنك معايا دايمًا 🌸";
-  let charIdx = 0;
-  const textEl = document.getElementById('typedText');
+/* ── خلفية صور ── */
+const bgImgs  = document.querySelectorAll('.bg-layer img');
+const bgWrap  = document.getElementById('bgDots');
+let bgIdx = 0;
+bgImgs.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className = 'bg-dot'+(i===0?' on':'');
+  bgWrap.appendChild(d);
+});
+const bgDots = bgWrap.querySelectorAll('.bg-dot');
+function nextBg(){
+  bgImgs[bgIdx].classList.remove('active'); bgDots[bgIdx].classList.remove('on');
+  bgIdx = (bgIdx+1) % bgImgs.length;
+  bgImgs[bgIdx].classList.add('active'); bgDots[bgIdx].classList.add('on');
+}
+setInterval(nextBg, 5000);
 
-  function typeWriter() {
-    if (charIdx < msg.length) {
-      textEl.innerHTML = msg.slice(0, charIdx + 1) + '<span class="cursor"></span>';
-      charIdx++;
-      setTimeout(typeWriter, 55);
-    }
+/* ══════════════════════════════
+   ── الجاليري ──
+══════════════════════════════ */
+const slides   = document.querySelectorAll('.gallery-slide');
+const track    = document.getElementById('galleryTrack');
+const gcEl     = document.getElementById('gc');
+const gDotsEl  = document.getElementById('galleryDots');
+const frame    = document.getElementById('galleryFrame');
+const TOTAL    = slides.length;
+let gIdx = 0;
+let touchX0 = 0, touchY0 = 0, dragging = false;
+let galTimer;
+
+/* بناء نقط الجاليري */
+slides.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className = 'gallery-dot'+(i===0?' active':'');
+  d.addEventListener('click', ()=> goTo(i));
+  gDotsEl.appendChild(d);
+});
+const gDots = gDotsEl.querySelectorAll('.gallery-dot');
+
+/* الانتقال */
+function goTo(n){
+  gIdx = ((n % TOTAL) + TOTAL) % TOTAL;
+  track.style.transform = `translateX(${gIdx * 100}%)`;
+  gDots.forEach((d,i) => d.classList.toggle('active', i===gIdx));
+  if(gcEl) gcEl.textContent = `${gIdx+1} / ${TOTAL}`;
+}
+function galleryMove(dir){ goTo(gIdx - dir); }
+
+/* auto-play */
+function startAuto(){ galTimer = setInterval(()=> galleryMove(-1), 4500); }
+function stopAuto() { clearInterval(galTimer); }
+
+/* swipe */
+frame.addEventListener('touchstart', e=>{
+  touchX0 = e.touches[0].clientX;
+  touchY0 = e.touches[0].clientY;
+  dragging = true;
+  stopAuto();
+}, {passive:true});
+frame.addEventListener('touchend', e=>{
+  if(!dragging) return;
+  const dx = e.changedTouches[0].clientX - touchX0;
+  const dy = e.changedTouches[0].clientY - touchY0;
+  if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) galleryMove(dx > 0 ? 1 : -1);
+  dragging = false;
+  startAuto();
+}, {passive:true});
+
+/* ── typing ── */
+const msg = "كل سنة وانتِ أجمل حاجة في حياتي 💜 وجودك فرّق معايا في كل حاجة... وأنا محظوظ إنك معايا دايمًا 🌸";
+let charIdx = 0;
+const textEl = document.getElementById('typedText');
+function typeWriter(){
+  if(charIdx < msg.length){
+    textEl.innerHTML = msg.slice(0, charIdx+1) + '<span class="cursor"></span>';
+    charIdx++;
+    setTimeout(typeWriter, 55);
   }
+}
 
-  // ── جسيمات قلوب ──
-  const emojis = ['💜','🌸','✨','💫','🎀','🌷','💖'];
-  function spawnParticle() {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    const dur = 5 + Math.random() * 6;
-    p.style.cssText = `
-      left: ${Math.random()*100}%;
-      font-size: ${14 + Math.random()*14}px;
-      animation-duration: ${dur}s;
-      animation-delay: ${Math.random()*2}s;
-    `;
-    document.getElementById('particles').appendChild(p);
-    setTimeout(() => p.remove(), (dur + 2) * 1000);
-  }
+/* ── جسيمات ── */
+const emojis = ['💜','🌸','✨','💫','🎀','🌷','💖'];
+function spawnParticle(){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  const dur = 5 + Math.random()*6;
+  p.style.cssText = `left:${Math.random()*100}%;font-size:${14+Math.random()*14}px;animation-duration:${dur}s;animation-delay:${Math.random()*2}s;`;
+  document.getElementById('particles').appendChild(p);
+  setTimeout(()=> p.remove(), (dur+2)*1000);
+}
 
-  let particleInterval;
-
-  // ── بدء التجربة ──
-  function startExperience() {
-    document.getElementById('startScreen').classList.add('hidden');
-    document.getElementById('music').play().catch(() => {});
-    const content = document.getElementById('mainContent');
-    content.classList.add('show');
-
-    setTimeout(typeWriter, 800);
-
-    particleInterval = setInterval(spawnParticle, 1800);
-    for (let i = 0; i < 5; i++) setTimeout(spawnParticle, i * 300);
-  }
+/* ── بدء التجربة ── */
+function startExperience(){
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('music').play().catch(()=>{});
+  document.getElementById('mainContent').classList.add('show');
+  setTimeout(typeWriter, 900);
+  setInterval(spawnParticle, 1800);
+  for(let i=0;i<5;i++) setTimeout(spawnParticle, i*300);
+  startAuto();
+}
 </script>
 </body>
 </html>
