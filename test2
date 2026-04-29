@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Jessie 💜</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  background: black;
+}
+
+/* شاشة البداية */
+.start-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #2b0040, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.start-btn {
+  padding: 20px 40px;
+  font-size: 20px;
+  background: #a855f7;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px #a855f7;
+}
+
+/* الخلفية */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(15px);
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.background img.active {
+  opacity: 0.4;
+}
+
+/* المحتوى */
+.content {
+  padding: 50px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 2s;
+}
+
+.content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.message {
+  background: rgba(80, 0, 120, 0.6);
+  padding: 20px;
+  border-radius: 15px;
+  display: inline-block;
+  max-width: 600px;
+}
+
+/* الفيديو */
+video {
+  width: 80%;
+  margin-top: 20px;
+  border-radius: 15px;
+}
+
+/* الجايد */
+.guide {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(100,0,150,0.8);
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- شاشة البداية -->
+<div class="start-screen">
+  <button class="start-btn" onclick="startExperience()">دوسي هنا 🎁</button>
+</div>
+
+<!-- موسيقى -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- الخلفية -->
+<div class="background">
+  <img src="photo1.jpg" class="active">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+</div>
+
+<div class="content" id="mainContent">
+  <h1>Happy Birthday Jessie 💜</h1>
+
+  <div class="message">
+    <p id="typedText"></p>
+  </div>
+
+  <h2>فيديوهاتنا القديمة🎥</h2>
+
+  <video controls>
+    <source src="video1.mp4" type="video/mp4">
+  </video>
+
+  <video controls>
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="guide" id="guide">
+👇 Guide <br>
+اتفرجي على الرسالة 💜<br>
+استمتعي بالصور في الخلفية ✨<br>
+انزلي للفيديوهات 🎥<br>
+</div>
+
+<script>
+// كتابة تدريجية
+let text = "كل سنة وانتي أجمل حاجة في حياتي ❤️ وجودك فرق معايا في كل حاجة... وأنا محظوظ إنك معايا 💕";
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typedText").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
+
+// بدء التجربة
+function startExperience() {
+  document.querySelector(".start-screen").style.display = "none";
+  
+  let music = document.getElementById("music");
+  music.play();
+
+  let content = document.getElementById("mainContent");
+  content.classList.add("show");
+
+  document.getElementById("guide").style.display = "block";
+
+  typeWriter();
+}
+
+// تغيير الصور
+let images = document.querySelectorAll(".background img");
+let index = 0;
+
+setInterval(() => {
+  images[index].classList.remove("active");
+  index = (index + 1) % images.length;
+  images[index].classList.add("active");
+}, 4000);
+</script>
+
+</body>
+</html>
